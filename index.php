@@ -50,34 +50,93 @@
 <body>
     <!-- Main -->
     <main class="main-content">
-        <!-- Tabella -->
-        <table class="table">
-            <!-- Testa della tabella -->
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Descrizione</th>
-                    <th>Parcheggio</th>
-                    <th>Voto</th>
-                    <th>Distanza dal centro</th>
-                </tr>
-            </thead>
-            <!-- Corpo della tabella -->
-            <tbody>
-                <!-- PHP -->
-                <?php
-                    //Ciclo
-                    foreach ($hotels as $hotel) {
-                        echo "<tr>"; //apro la riga della tabella
-                        //Ciclo
-                        foreach ($hotel as $key => $value) {
-                            echo "<td>$value</td>"; //stampo i dati degli array
+        <!-- Container -->
+        <div class="container">
+            <!-- Form -->
+            <form class="form" action="./index.php" method="GET">
+                <!-- Filtro per voto -->
+                <select name="vote">
+                    <!-- Opzione -->
+                    <option value="">Filtra per voto</option>
+                    <!-- Opzione -->
+                    <option value="1">1</option>
+                    <!-- Opzione -->
+                    <option value="2">2</option>
+                    <!-- Opzione -->
+                    <option value="3">3</option>
+                    <!-- Opzione -->
+                    <option value="4">4</option>
+                    <!-- Opzione -->
+                    <option value="5">5</option>
+                </select>
+                <!-- Submit -->
+                <input type="submit" name="filter" value="Filtra">
+            </form>
+            <!-- Tabella -->
+            <table class="table">
+                <!-- Testa della tabella -->
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrizione</th>
+                        <th>Parcheggio</th>
+                        <th>Voto</th>
+                        <th>Distanza dal centro</th>
+                    </tr>
+                </thead>
+                <!-- Corpo della tabella -->
+                <tbody>
+                    <!-- PHP -->
+                    <?php
+                        //Se il filtro non è attivo, stampo tutta la tabella
+                        if (!isset($_GET['filter'])) {
+                            //Ciclo
+                            foreach ($hotels as $hotel) {
+                                echo "<tr>"; //apro la riga della tabella
+                                //Ciclo
+                                foreach ($hotel as $key => $value) {
+                                    //Se la chiave dell'array è il parcheggio
+                                    if ($key == "parking") {
+                                        //Se il parcheggio è disponibile
+                                        if ($value == true) {
+                                            echo "<td>Disponibile</td>"; //dico che il parcheggio è disponbile
+                                        } else { //altrimenti
+                                            echo "<td>Non disponibile</td>"; //dico che il parcheggio non è disponbile
+                                        }
+                                    } else { //altrimenti
+                                        echo "<td>$value</td>"; //stampo i dati dell'array
+                                    }
+                                }
+                                echo "</tr>"; //chiudo la riga della tabella
+                            }
+                        } else { //altrimenti
+                            //Ciclo
+                            foreach ($hotels as $hotel) {
+                                echo "<tr>"; //apro la riga della tabella
+                                //Se il voto dell'hotel è uguale a quello del filtro
+                                if ($hotel['vote'] == $_GET['vote']) {
+                                    //Ciclo
+                                    foreach ($hotel as $key => $value) {
+                                        //Se la chiave dell'array è il parcheggio
+                                        if ($key == "parking") {
+                                            //Se il parcheggio è disponibile
+                                            if ($value == true) {
+                                                echo "<td>Disponibile</td>"; //dico che il parcheggio è disponbile
+                                            } else { //altrimenti
+                                                echo "<td>Non disponibile</td>"; //dico che il parcheggio non è disponbile
+                                            }
+                                        } else { //altrimenti
+                                            echo "<td>$value</td>"; //stampo i dati dell'array
+                                        }
+                                    }
+                                }
+                                echo "</tr>"; //chiudo la riga della tabella
+                            }
                         }
-                        echo "</tr>"; //chiudo la riga della tabella
-                    }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>
