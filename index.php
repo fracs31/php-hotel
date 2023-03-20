@@ -48,6 +48,36 @@
     <title>PHP Hotel</title>
 </head>
 <body>
-
+    <!-- Main -->
+    <main class="main-content">
+        <!-- Tabella -->
+        <table class="table">
+            <!-- Testa della tabella -->
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Parcheggio</th>
+                    <th>Voto</th>
+                    <th>Distanza dal centro</th>
+                </tr>
+            </thead>
+            <!-- Corpo della tabella -->
+            <tbody>
+                <!-- PHP -->
+                <?php
+                    //Ciclo
+                    foreach ($hotels as $hotel) {
+                        echo "<tr>"; //apro la riga della tabella
+                        //Ciclo
+                        foreach ($hotel as $key => $value) {
+                            echo "<td>$value</td>"; //stampo i dati degli array
+                        }
+                        echo "</tr>"; //chiudo la riga della tabella
+                    }
+                ?>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>
